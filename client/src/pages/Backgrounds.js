@@ -1,6 +1,7 @@
 import { Container } from "../components/styled/Container.styled";
 import { useEffect, useState } from "react";
 import Loader from "../components/Loader";
+import BackgroundsList from "../components/lists/BackgroundsList";
 
 const Backgrounds = () => {
   const [bgData, setBgData] = useState(null);
@@ -29,9 +30,7 @@ const Backgrounds = () => {
   return (
     <>
       <Container>
-        {bgData.map((background) => {
-          return <h1>{background.name}</h1>;
-        })}
+        <BackgroundsList data={bgData} />
       </Container>
     </>
   );
