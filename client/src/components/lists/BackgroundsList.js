@@ -1,8 +1,13 @@
-import BackgroundContainer from "../BackgroundContainer";
-const BackgroundsList = ({ data }) => {
-  data.map((background) => {
+import BackgroundItem from "../BackgroundItem";
+const BackgroundsList = ({ data, countImages }) => {
+  return data.map((background) => {
     return (
-      <BackgroundContainer image={background.url} name={background.name} />
+      <BackgroundItem
+        key={background._id}
+        image={background.url}
+        name={background.name}
+        countImages={countImages}
+      />
     );
   });
 };

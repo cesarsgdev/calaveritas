@@ -44,7 +44,7 @@ backgroundSchema.post("find", async function (doc) {
         Key: `backgrounds/${result.key}`,
       };
       const command = await new GetObjectCommand(params);
-      result._doc.url = await getSignedUrl(s3, command, { expiresIn: 180 });
+      result._doc.url = await getSignedUrl(s3, command, { expiresIn: 3600 });
     } catch (e) {
       console.log(e.message);
     }

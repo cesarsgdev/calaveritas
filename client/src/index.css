@@ -1,5 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap");
+
 :root {
   --main-violet: #4c2e86;
+  --main-violet-trans: #4b2e86cc;
+
+  /* --light-violet: #7448cd; */
+  --light-violet: #653cb6;
 }
 
 * {
@@ -11,7 +17,7 @@
 body {
   height: 100vh;
   min-height: 100vh;
-  font-family: sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+  font-family: "Lato", sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
     "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
     "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;

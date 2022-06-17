@@ -54,7 +54,7 @@ router.get("/getUrl", async (req, res) => {
 
 router.get("/", async (req, res) => {
   try {
-    const backgrounds = await Background.find();
+    const backgrounds = await Background.find().skip();
     res.status(200).json({ success: true, data: backgrounds });
   } catch (e) {
     res.status(400).json({ success: false, message: `${e.message}` });
@@ -67,20 +67,20 @@ router.post("/", upload.single("background"), async (req, res) => {
     console.log(req.file);
 
     const image = await sharp(req.file.buffer)
-      .resize(1000)
-      .webp({ quality: 100, lossless: false })
+      .resize(800)
+      .jpeg({ quality: 40, progressive: true, optimizeScans: true })
       .toBuffer();
 
     const base64image = image.toString("base64");
 
-    const key = `${Date.now().toString()}.webp`;
+    const key = `${Date.now().toString()}.jpeg`;
 
     const params = {
       Bucket: "calaveritas",
       Key: `backgrounds/${key}`,
       Body: Buffer.from(base64image, "base64"),
       ContentEncoding: "base64",
-      ContentType: "image/webp",
+      ContentType: "image/jpeg",
     };
 
     const uploadObject = await s3.send(new PutObjectCommand(params));

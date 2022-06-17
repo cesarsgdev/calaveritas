@@ -7,7 +7,9 @@ const Loader = () => {
     <Overlay>
       <img src={skullLogo} alt="skull-logo" />
       <h1>Loading...</h1>
-      <LoadBar />
+      <LoadBar>
+        <div className="loader"></div>
+      </LoadBar>
     </Overlay>
   );
 };
