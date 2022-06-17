@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require("mongoose");
 const PORT = process.env.PORT || 3001;
 const backgrounds = require("./routes/backgrounds");
+const calaveritas = require("./routes/calaveritas");
 require("dotenv").config();
 
 try {
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/backgrounds", backgrounds);
+app.use("/api/calaveritas", calaveritas);
 
 app.get("/", (req, res) => {
   res.status(200).json({ message: "This is the calaveritas API" });
