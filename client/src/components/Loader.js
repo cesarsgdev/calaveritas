@@ -5,7 +5,7 @@ import skullLogo from "../skull-logo.svg";
 const Loader = () => {
   return (
     <Overlay>
-      <img src={skullLogo} alt="skull-logo" />
+      <img src={skullLogo} alt="Las Calaveritas" />
       <h1>Loading...</h1>
       <LoadBar>
         <div className="loader"></div>
