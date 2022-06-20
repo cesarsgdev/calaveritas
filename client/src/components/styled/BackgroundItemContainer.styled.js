@@ -4,8 +4,12 @@ export const BackgroundItemContainer = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
-  cursor: pointer;
   border-radius: 5px;
+  transition: 1s;
+
+  &:hover {
+    transform: scale(1.04);
+  }
 
   & h2 {
     color: var(--main-violet);
@@ -29,11 +33,13 @@ export const BackgroundItemContainer = styled.div`
     filter: grayscale();
   }
 
-  & div {
+  & > div {
     display: flex;
+    flex-flow: column;
     justify-content: center;
     align-items: center;
     position: absolute;
+    gap: 20px;
     top: 0;
     left: 0;
     width: 100%;
@@ -43,5 +49,11 @@ export const BackgroundItemContainer = styled.div`
     opacity: 1;
     border-radius: 5px;
     transition: 1s;
+  }
+
+  & div.actionButtons {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 10px;
   }
 `;

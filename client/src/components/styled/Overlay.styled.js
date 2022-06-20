@@ -8,7 +8,7 @@ export const Overlay = styled.div`
   gap: 20px;
   width: 100%;
   height: 100%;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   background: rgba(255, 255, 255, 0.9);
@@ -16,5 +16,17 @@ export const Overlay = styled.div`
 
   & img {
     width: 10%;
+  }
+
+  & img.previewBackground {
+    width: auto;
+    height: 70%;
+    border-radius: 5px;
+  }
+
+  & div.actionButtons {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 10px;
   }
 `;

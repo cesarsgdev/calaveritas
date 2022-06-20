@@ -6,7 +6,6 @@ import BackgroundsList from "../components/lists/BackgroundsList";
 const Backgrounds = () => {
   const [bgData, setBgData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const imagesLoaded = useRef(0);
 
   useEffect(() => {
     fetch("api/backgrounds")
@@ -22,14 +21,6 @@ const Backgrounds = () => {
       });
   }, []);
 
-  const countImages = () => {
-    imagesLoaded.current += 1;
-    console.log(imagesLoaded.current);
-    if (imagesLoaded.current >= bgData.length) {
-      setIsLoading(!isLoading);
-    }
-  };
-
   if (!bgData && !isLoading)
     return (
       <Container>
@@ -40,7 +31,7 @@ const Backgrounds = () => {
   return (
     <>
       <Container grid>
-        <BackgroundsList data={bgData} countImages={countImages} />
+        <BackgroundsList data={bgData} />
       </Container>
     </>
   );
