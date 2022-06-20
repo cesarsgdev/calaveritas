@@ -21,17 +21,6 @@ const s3 = new S3Client({
   },
 });
 
-// const upload = multer({
-//   storage: multerS3({
-//     s3: s3,
-//     bucket: "calaveritas",
-//     key: function (req, file, cb) {
-//       cb(null, Date.now().toString());
-//     },
-//   }),
-// });
-
-//task-001/1655353321962
 router.get("/getUrl", async (req, res) => {
   const params = {
     Bucket: "calaveritas",

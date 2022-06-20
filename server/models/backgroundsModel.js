@@ -3,6 +3,7 @@ const { Schema } = mongoose;
 const { GetObjectCommand } = require("@aws-sdk/client-s3");
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 const { S3Client } = require("@aws-sdk/client-s3");
+const getStream = require("get-stream");
 require("dotenv").config();
 
 const s3 = new S3Client({
@@ -37,18 +38,21 @@ const backgroundSchema = new Schema(
 );
 
 backgroundSchema.post("find", async function (doc) {
-  doc.forEach(async (result, i) => {
+  for (background of doc) {
     try {
       const params = {
         Bucket: "calaveritas",
-        Key: `backgrounds/${result.key}`,
+        Key: `backgrounds/${background.key}`,
       };
-      const command = await new GetObjectCommand(params);
-      result._doc.url = await getSignedUrl(s3, command, { expiresIn: 3600 });
+      const command = new GetObjectCommand(params);
+      const data = await s3.send(command);
+      const stream = await getStream(data.Body, { encoding: "base64" });
+      // result.url = await getSignedUrl(s3, command, { expiresIn: 3600 });
+      background._doc.base64 = stream;
     } catch (e) {
       console.log(e.message);
     }
-  });
+  }
 });
 
 const backgroundsModel = mongoose.model("backgrounds", backgroundSchema);
