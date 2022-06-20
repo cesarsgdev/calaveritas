@@ -5,7 +5,6 @@ import BackgroundsList from "../components/lists/BackgroundsList";
 
 const Backgrounds = () => {
   const [bgData, setBgData] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     fetch("api/backgrounds")
@@ -21,10 +20,10 @@ const Backgrounds = () => {
       });
   }, []);
 
-  if (!bgData && !isLoading)
+  if (!bgData)
     return (
       <Container>
-        <Loader />
+        <Loader loading="backgrounds" />
       </Container>
     );
 

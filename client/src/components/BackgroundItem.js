@@ -4,7 +4,7 @@ import { Overlay } from "./styled/Overlay.styled";
 import { useState } from "react";
 import BGActionButtons from "./BGActionButtons";
 
-const BackgroundItem = ({ image, name }) => {
+const BackgroundItem = ({ id, image, name }) => {
   const [preview, setPreview] = useState(false);
 
   const handlePreview = () => {
@@ -13,7 +13,7 @@ const BackgroundItem = ({ image, name }) => {
   };
   return (
     <>
-      <BackgroundItemContainer>
+      <BackgroundItemContainer id={id}>
         <img
           src={`data:image/png;base64,${image}`}
           alt={name}

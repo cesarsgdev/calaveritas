@@ -24,13 +24,13 @@ export const BackgroundItemContainer = styled.div`
   }
 
   &:hover img {
-    filter: grayscale();
+    filter: grayscale(50%);
   }
   & img {
     object-fit: cover;
     border-radius: 5px;
     transition: 1s;
-    filter: grayscale();
+    filter: grayscale() blur(3px);
   }
 
   & > div {

@@ -9,7 +9,7 @@ const Layout = ({ children }) => {
   return (
     <>
       <Header>
-        <Container flex align="center">
+        <Container flex align="center" pd="0px 20px" height="100px">
           <Link to="/">
             <img src={logo} alt="Logo LasCalaveritas.com" />
           </Link>

@@ -4,7 +4,9 @@ const Calaverita = require("../models/calaveritaModel");
 
 router.get("/", async (req, res) => {
   try {
-    const calaveritas = await Calaverita.find({}).populate("background", "key");
+    const calaveritas = await Calaverita.find({})
+      .skip(3)
+      .populate("background", "key");
     res.status(200).json({ success: true, data: calaveritas });
   } catch (e) {
     res.status(400).json({ success: false, message: `${e.message}` });

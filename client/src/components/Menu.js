@@ -5,16 +5,26 @@ import { NavLink } from "react-router-dom";
 const Menu = () => {
   return (
     <NavBar>
-      <Container>
+      <Container flex align="center" pd="0px 20px" height="50px">
         <ul>
           <li>
-            <NavLink to="/">My Calaveritas</NavLink>
+            <NavLink
+              to="/"
+              className={({ isActive }) => (isActive ? "active" : "")}
+            >
+              My Calaveritas
+            </NavLink>
           </li>
-          <li>
+          {/* <li>
             <NavLink to="/my-images">My Images</NavLink>
-          </li>
+          </li> */}
           <li>
-            <NavLink to="/backgrounds">Backgrounds</NavLink>
+            <NavLink
+              to="/backgrounds"
+              className={({ isActive }) => (isActive ? "active" : "")}
+            >
+              Backgrounds
+            </NavLink>
           </li>
         </ul>
       </Container>

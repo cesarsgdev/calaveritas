@@ -3,9 +3,12 @@
 :root {
   --main-violet: #4c2e86;
   --main-violet-trans: #4b2e86cc;
+  --main-violet-hover: #312053;
 
   /* --light-violet: #7448cd; */
   --light-violet: #653cb6;
+  --main-yellow: #fdc660;
+  --main-yellow-trans: #fdad18;
 }
 
 * {
@@ -36,4 +39,8 @@ code {
 
 #colors {
   color: orange;
+}
+
+button {
+  font-family: "Lato", sans-serif;
 }

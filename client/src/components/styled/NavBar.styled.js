@@ -3,7 +3,7 @@ export const NavBar = styled.nav`
   width: 100%;
   height: 50px;
   /* background: #ffae44; */
-  background: #fdc660;
+  background: var(--main-yellow);
 
   & ul {
     display: flex;
@@ -25,5 +25,15 @@ export const NavBar = styled.nav`
     color: #000;
     text-decoration: none;
     height: 100%;
+    padding: 0 20px;
+    transition: 1s;
+  }
+
+  & ul a:hover {
+    background: var(--main-yellow-trans);
+  }
+
+  & ul a.active {
+    background: var(--main-yellow-trans);
   }
 `;

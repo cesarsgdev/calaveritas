@@ -4,7 +4,7 @@ export const Container = styled.div`
   width: 100%;
   ${({ height }) =>
     height ? "height:" + height + ";" : "height: fit-content;"}
-  min-height: 100%;
+  min-height: calc(100% - 150px);
   max-width: 2500px;
   margin: auto;
   ${({ flex }) => (flex ? "display: flex;" : "")}
