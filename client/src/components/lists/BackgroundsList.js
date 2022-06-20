@@ -4,7 +4,7 @@ const BackgroundsList = ({ data, countImages }) => {
     return (
       <BackgroundItem
         key={background._id}
-        image={background.url}
+        image={background.base64}
         name={background.name}
         countImages={countImages}
       />

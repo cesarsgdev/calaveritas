@@ -4,7 +4,7 @@ const BackgroundItem = ({ image, name, countImages }) => {
   return (
     <BackgroundItemContainer>
       <img
-        src={image}
+        src={`data:image/png;base64,${image}`}
         alt={name}
         width="100%"
         height="100%"
