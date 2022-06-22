@@ -5,6 +5,7 @@ import App from "./App";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Backgrounds from "./pages/Backgrounds";
+import Editor from "./components/Editor";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -14,6 +15,7 @@ root.render(
         <Route index element={<Home />} />
         <Route path="/backgrounds" element={<Backgrounds />} />
       </Route>
+      <Route path="editor/:id" element={<Editor />}></Route>
     </Routes>
   </BrowserRouter>
 );

@@ -18,7 +18,10 @@ router.get("/:id", async (req, res) => {
     const calaverita = await Calaverita.findById(req.params.id).populate(
       "background"
     );
-    res.status(200).json({ success: true, data: calaverita });
+
+    if (calaverita) {
+      res.status(200).json({ success: true, data: calaverita });
+    }
   } catch (e) {
     res.status(400).json({ success: false, message: `${e.message}` });
   }

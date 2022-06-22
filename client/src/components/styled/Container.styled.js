@@ -14,7 +14,7 @@ export const Container = styled.div`
   ${({ align }) => (align ? "align-items:" + align + ";" : "")}
   ${({ gap }) => (gap ? "gap:" + gap + ";" : "")}
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 500px 500px 500px;
+  grid-template-rows: 1000px 1000px 1000px;
   gap: 20px;
   ${({ pd }) => (pd ? "padding:" + pd + ";" : "padding:20px;")}
 `;

@@ -1,10 +1,10 @@
 import { BackgroundItemContainer } from "./styled/BackgroundItemContainer.styled";
-import { Button } from "./styled/Button.styled";
 import { Overlay } from "./styled/Overlay.styled";
 import { useState } from "react";
 import BGActionButtons from "./BGActionButtons";
+import * as React from "react";
 
-const BackgroundItem = ({ id, image, name }) => {
+const BackgroundItem = React.forwardRef(({ id, image, name }, ref) => {
   const [preview, setPreview] = useState(false);
 
   const handlePreview = () => {
@@ -13,7 +13,7 @@ const BackgroundItem = ({ id, image, name }) => {
   };
   return (
     <>
-      <BackgroundItemContainer id={id}>
+      <BackgroundItemContainer id={id} ref={ref}>
         <img
           src={`data:image/png;base64,${image}`}
           alt={name}
@@ -38,6 +38,6 @@ const BackgroundItem = ({ id, image, name }) => {
       )}
     </>
   );
-};
+});
 
 export default BackgroundItem;
