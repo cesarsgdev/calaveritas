@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Calaverita = require("../models/calaveritaModel");
+const BGColorModel = require("../models/bgColorModel");
 
 router.get("/", async (req, res) => {
   try {
@@ -30,6 +31,9 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const calaverita = new Calaverita(req.body);
+    const bgModel = new BGColorModel();
+    calaverita.bgColor = bgModel;
+    console.log(calaverita);
     await calaverita.save();
     res.status(200).json(calaverita);
   } catch (e) {

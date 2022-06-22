@@ -1,13 +1,7 @@
 const mongoose = require("mongoose");
+const bgSchema = require("./bgColorModel");
 
 const { Schema } = mongoose;
-
-const bgSchema = new Schema({
-  r: { type: String, required: true, default: "0" },
-  g: { type: String, required: true, default: "0" },
-  b: { type: String, required: true, default: "0" },
-  a: { type: String, required: true, default: "1" },
-});
 
 const calaveritaSchema = new Schema(
   {
@@ -30,7 +24,7 @@ const calaveritaSchema = new Schema(
       ref: "backgrounds",
     },
 
-    bgColor: [bgSchema],
+    bgColor: bgSchema.schema,
   },
   { timestamps: true }
 );
