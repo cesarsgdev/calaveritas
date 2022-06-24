@@ -1,15 +1,19 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import transparentBG from "../transparent-bg.jpeg";
 import Loader from "./Loader";
-import { SketchPicker } from "react-color";
+import { EditorContainer } from "./styled/EditorContainer.styled";
+import { CanvasContainer } from "./styled/CanvasContainer.styled";
+import { OptionsPanel } from "./styled/OptionsPanel.styled";
+import { CalaveritaDesign } from "./styled/CalaveritaDesign.styled";
 
 const Editor = () => {
   const { id } = useParams();
   const [clData, setClData] = useState({});
-  const [displayColorPicker, setDisplayColorPicker] = useState(false);
-  // const [bgColor, setBgColor] = useState("#000");
-  const [color, setColor] = useState({ r: "141", g: "214", b: "46", a: "1" });
+  const [zoom, setZoom] = useState(1);
   const navigate = useNavigate();
+  const calaveritaDesign = useRef();
+  const canvasElement = useRef();
 
   useEffect(() => {
     fetch(`../api/calaveritas/${id}`)
@@ -26,39 +30,31 @@ const Editor = () => {
       });
   }, []);
 
-  const handleColorChange = (color) => {
-    setColor(color.rgb);
-    console.log(color);
+  const handleWheel = (e) => {
+    if (e.deltaY > 0 && zoom > 0) {
+      setZoom((zoom) => zoom - 0.025);
+      calaveritaDesign.current.style.transform = `scale(${zoom})`;
+    } else {
+      setZoom((zoom) => zoom + 0.025);
+      calaveritaDesign.current.style.transform = `scale(${zoom})`;
+    }
   };
-
-  const handleColorComplete = (color) => {};
 
   if (!clData.name) return <Loader loading="editor" />;
 
   if (clData.name)
     return (
       <>
-        <h1>
-          Editor!!!! {id} {clData.name}
-        </h1>
-        <div
-          style={{
-            width: "30px",
-            height: "30px",
-            background: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`,
-            cursor: "pointer",
-          }}
-          onClick={() => {
-            setDisplayColorPicker(!displayColorPicker);
-          }}
-        ></div>
-        {displayColorPicker && (
-          <SketchPicker
-            color={color}
-            onChange={handleColorChange}
-            onChangeComplete={handleColorComplete}
-          />
-        )}
+        <EditorContainer>
+          <CanvasContainer
+            ref={canvasElement}
+            onWheel={handleWheel}
+            cbi={transparentBG}
+          >
+            <CalaveritaDesign ref={calaveritaDesign} />
+          </CanvasContainer>
+          <OptionsPanel></OptionsPanel>
+        </EditorContainer>
       </>
     );
 };
