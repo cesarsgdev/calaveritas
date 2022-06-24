@@ -4,6 +4,7 @@ import transparentBG from "../transparent-bg.jpeg";
 import Loader from "./Loader";
 import { EditorContainer } from "./styled/EditorContainer.styled";
 import { CanvasContainer } from "./styled/CanvasContainer.styled";
+import { CanvasFooterInfo } from "./styled/CanvasFooterInfo.styled";
 import { OptionsPanel } from "./styled/OptionsPanel.styled";
 import { CalaveritaDesign } from "./styled/CalaveritaDesign.styled";
 
@@ -51,7 +52,18 @@ const Editor = () => {
             onWheel={handleWheel}
             cbi={transparentBG}
           >
-            <CalaveritaDesign ref={calaveritaDesign} />
+            <CalaveritaDesign
+              ref={calaveritaDesign}
+              bg={clData.background.base64}
+              bgColor={clData.bgColor}
+            >
+              <input type="text" />
+              <textarea></textarea>
+            </CalaveritaDesign>
+            <CanvasFooterInfo>
+              <div>{clData.name}</div>
+              <div>{Math.round(zoom * 100)}%</div>
+            </CanvasFooterInfo>
           </CanvasContainer>
           <OptionsPanel></OptionsPanel>
         </EditorContainer>

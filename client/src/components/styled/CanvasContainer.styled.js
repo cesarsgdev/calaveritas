@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const CanvasContainer = styled.section`
-  /* width: 60%; */
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
