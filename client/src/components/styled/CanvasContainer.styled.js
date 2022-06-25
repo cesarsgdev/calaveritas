@@ -12,4 +12,14 @@ export const CanvasContainer = styled.section`
   background-repeat: repeat;
   background-size: 500px;
   overflow: hidden;
+
+  & > img {
+    width: 350px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: var(--main-violet);
+    padding: 5px;
+    border-radius: 3px;
+  }
 `;
