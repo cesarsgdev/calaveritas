@@ -22,7 +22,6 @@ export const OptionsPanel = styled.section`
     gap: 10px;
     width: 100%;
     height: fit-content;
-    min-height: 100px;
     background: var(--main-violet-hover);
     transition: 1.5s;
     border-radius: 3px;
@@ -58,10 +57,16 @@ export const OptionsPanel = styled.section`
     position: relative;
     display: flex;
     flex-flow: column;
-    gap: 10px;
+    gap: 20px;
     flex: 1 1 40%;
     background: rgba(0, 0, 0, 0.25);
     padding: 10px;
+  }
+
+  & div.sectionColumn div {
+    display: flex;
+    gap: 10px;
+    flex-flow: column nowrap;
   }
 
   & div.twoColumns button {
@@ -73,6 +78,7 @@ export const OptionsPanel = styled.section`
 
   & div.twoColumns .pickerContainer {
     position: absolute;
-    bottom: -300px;
+    bottom: -235px;
+    z-index: 1000;
   }
 `;

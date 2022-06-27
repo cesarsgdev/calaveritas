@@ -39,33 +39,37 @@ const EditorOptions = ({ name, clData, changeBGColor }) => {
         <OptionsSection title="Background">
           <div className="twoColumns">
             <div className="sectionColumn">
-              <h3>Color</h3>
-              <button
-                style={{
-                  background: `linear-gradient(rgba(${bgColor.r},${bgColor.g},${bgColor.b},${bgColor.a}), rgba(${bgColor.r},${bgColor.g},${bgColor.b},${bgColor.a})), url(${transparentBG}) center/200px`,
-                }}
-                onClick={handlePicker}
-              ></button>
-              {displayPicker && (
-                <div className="pickerContainer">
-                  <SketchPicker
-                    color={bgColor}
-                    onChange={handleBGColorChange}
-                  />
-                </div>
-              )}
+              <div>
+                <h3>Color</h3>
+                <button
+                  style={{
+                    background: `linear-gradient(rgba(${bgColor.r},${bgColor.g},${bgColor.b},${bgColor.a}), rgba(${bgColor.r},${bgColor.g},${bgColor.b},${bgColor.a})), url(${transparentBG}) center/200px`,
+                  }}
+                  onClick={handlePicker}
+                ></button>
+                {displayPicker && (
+                  <div className="pickerContainer">
+                    <SketchPicker
+                      color={bgColor}
+                      onChange={handleBGColorChange}
+                    />
+                  </div>
+                )}
+              </div>
 
-              <EditorOptionsList data={blendColorOptions} />
+              <EditorOptionsList title="Blend Mode" data={blendColorOptions} />
             </div>
             <div className="sectionColumn">
-              <h3>Image</h3>
-              <button
-                style={{
-                  background: `url(data:image/jpeg;base64,${clData.background.base64})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              ></button>
+              <div>
+                <h3>Image</h3>
+                <button
+                  style={{
+                    background: `url(data:image/jpeg;base64,${clData.background.base64})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                  }}
+                ></button>
+              </div>
             </div>
           </div>
         </OptionsSection>

@@ -1,7 +1,7 @@
 import { EditorsOptionsContainer } from "./styled/EditorOptionsList.styled";
 import { useState } from "react";
 
-const EditorOptionsList = ({ data }) => {
+const EditorOptionsList = ({ data, title }) => {
   const [displayList, setDisplayList] = useState(false);
   const [defaultOpt, setDefaultOpt] = useState(data[0]);
 
@@ -17,6 +17,7 @@ const EditorOptionsList = ({ data }) => {
   return (
     <>
       <div>
+        <h3>{title}</h3>
         <button onClick={handleDisplay}>{defaultOpt}</button>
         {displayList && (
           <EditorsOptionsContainer>
