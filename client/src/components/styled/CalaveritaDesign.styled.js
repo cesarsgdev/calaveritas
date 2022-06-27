@@ -41,16 +41,21 @@ export const CalaveritaDesign = styled.main`
   }
 
   & div input[type="text"] {
+    font-family: ${({ fontTitle }) =>
+      fontTitle ? `${fontTitle}, sans-serif` : "inherit"};
     flex: 1 0 10%;
     color: #fff;
-    font-size: 36px;
+    font-size: ${({ fontSizeTitle }) =>
+      fontSizeTitle ? `${fontSizeTitle}px` : "36px"};
   }
 
   & div textarea {
     flex: 1 0 85%;
     color: #fff;
-    font-family: inherit;
-    font-size: 22px;
+    font-family: ${({ fontContent }) =>
+      fontContent ? `${fontContent}, sans-serif` : "inherit"};
+    font-size: ${({ fontSizeContent }) =>
+      fontSizeContent ? `${fontSizeContent}px` : "22px"};
     white-space: nowrap;
   }
 

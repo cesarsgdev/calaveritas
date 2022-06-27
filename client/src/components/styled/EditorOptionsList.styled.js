@@ -8,6 +8,7 @@ export const EditorsOptionsContainer = styled.ul`
   height: 200px;
   overflow: scroll;
   bottom: -210px;
+  z-index: 10000;
 
   & li {
     padding: 5px 10px;

@@ -4,7 +4,12 @@ import transparentBG from "../transparent-bg.jpeg";
 import { SketchPicker } from "react-color";
 import { useState } from "react";
 import EditorOptionsList from "./EditorOptionsList";
-import { blendColorOptions, filterOptions } from "./data/options";
+import {
+  blendColorOptions,
+  filterOptions,
+  fontFamilies,
+  fontSizes,
+} from "./data/options";
 
 const EditorOptions = ({ name, clData, changeBGColor, changeOption }) => {
   const [displayPicker, setDisplayPicker] = useState(false);
@@ -70,7 +75,44 @@ const EditorOptions = ({ name, clData, changeBGColor, changeOption }) => {
             </div>
           </div>
         </OptionsSection>
-        <OptionsSection title="Font"></OptionsSection>
+        <OptionsSection title="Font">
+          <div className="twoColumns">
+            <div className="sectionColumn">
+              <div className="subSection">
+                <h3>Title</h3>
+                <EditorOptionsList
+                  title="Family"
+                  data={fontFamilies}
+                  type="fontTitle"
+                  changeOption={changeOption}
+                />
+                <EditorOptionsList
+                  title="Size"
+                  data={fontSizes}
+                  type="fontSizeTitle"
+                  changeOption={changeOption}
+                />
+              </div>
+            </div>
+            <div className="sectionColumn">
+              <div className="subSection">
+                <h3>Content</h3>
+                <EditorOptionsList
+                  title="Family"
+                  data={fontFamilies}
+                  type="fontContent"
+                  changeOption={changeOption}
+                />
+                <EditorOptionsList
+                  title="Size"
+                  data={fontSizes}
+                  type="fontSizeContent"
+                  changeOption={changeOption}
+                />
+              </div>
+            </div>
+          </div>
+        </OptionsSection>
         <OptionsSection title="Size"></OptionsSection>
       </OptionsPanel>
     </>

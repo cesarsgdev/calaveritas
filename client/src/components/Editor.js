@@ -22,6 +22,10 @@ const Editor = () => {
   const contentInput = useRef();
   const [filter, setFilter] = useState(null);
   const [blendMode, setBlendMode] = useState(null);
+  const [fontTitle, setFontTitle] = useState(null);
+  const [fontContent, setFontContent] = useState(null);
+  const [fontSizeTitle, setFontSizeTitle] = useState(null);
+  const [fontSizeContent, setFontSizeContent] = useState(null);
 
   useEffect(() => {
     fetch(`../api/calaveritas/${id}`)
@@ -65,6 +69,18 @@ const Editor = () => {
     if (type === "blendMode") {
       setBlendMode(action);
     }
+    if (type === "fontTitle") {
+      setFontTitle(action);
+    }
+    if (type === "fontContent") {
+      setFontContent(action);
+    }
+    if (type === "fontSizeTitle") {
+      setFontSizeTitle(action);
+    }
+    if (type === "fontSizeContent") {
+      setFontSizeContent(action);
+    }
   };
 
   if (!clData.name) return <Loader loading="editor" />;
@@ -84,6 +100,10 @@ const Editor = () => {
               bgColor={clData.bgColor}
               imgFilter={filter}
               blendMode={blendMode}
+              fontTitle={fontTitle}
+              fontContent={fontContent}
+              fontSizeContent={fontSizeContent}
+              fontSizeTitle={fontSizeTitle}
             >
               <img
                 className="bgDesign"
