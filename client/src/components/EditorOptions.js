@@ -3,10 +3,26 @@ import OptionsSection from "./OptionsSection";
 import transparentBG from "../transparent-bg.jpeg";
 import { SketchPicker } from "react-color";
 import { useState } from "react";
+import EditorOptionsList from "./EditorOptionsList";
 
 const EditorOptions = ({ name, clData, changeBGColor }) => {
   const [displayPicker, setDisplayPicker] = useState(false);
   const [bgColor, setBgColor] = useState(clData.bgColor);
+
+  const blendColorOptions = [
+    "normal",
+    "multiply",
+    "screen",
+    "overlay",
+    "darken",
+    "lighten",
+    "dodge",
+    "burn",
+    "hard light",
+    "soft light",
+    "difference",
+    "exclusion",
+  ];
 
   const handlePicker = () => {
     setDisplayPicker(!displayPicker);
@@ -38,6 +54,8 @@ const EditorOptions = ({ name, clData, changeBGColor }) => {
                   />
                 </div>
               )}
+
+              <EditorOptionsList data={blendColorOptions} />
             </div>
             <div className="sectionColumn">
               <h3>Image</h3>
