@@ -4,25 +4,11 @@ import transparentBG from "../transparent-bg.jpeg";
 import { SketchPicker } from "react-color";
 import { useState } from "react";
 import EditorOptionsList from "./EditorOptionsList";
+import { blendColorOptions, filterOptions } from "./data/options";
 
-const EditorOptions = ({ name, clData, changeBGColor }) => {
+const EditorOptions = ({ name, clData, changeBGColor, changeOption }) => {
   const [displayPicker, setDisplayPicker] = useState(false);
   const [bgColor, setBgColor] = useState(clData.bgColor);
-
-  const blendColorOptions = [
-    "normal",
-    "multiply",
-    "screen",
-    "overlay",
-    "darken",
-    "lighten",
-    "dodge",
-    "burn",
-    "hard light",
-    "soft light",
-    "difference",
-    "exclusion",
-  ];
 
   const handlePicker = () => {
     setDisplayPicker(!displayPicker);
@@ -39,7 +25,7 @@ const EditorOptions = ({ name, clData, changeBGColor }) => {
         <OptionsSection title="Background">
           <div className="twoColumns">
             <div className="sectionColumn">
-              <div>
+              <div className="subSection">
                 <h3>Color</h3>
                 <button
                   style={{
@@ -57,10 +43,15 @@ const EditorOptions = ({ name, clData, changeBGColor }) => {
                 )}
               </div>
 
-              <EditorOptionsList title="Blend Mode" data={blendColorOptions} />
+              <EditorOptionsList
+                title="Blend Mode"
+                data={blendColorOptions}
+                type="blendMode"
+                changeOption={changeOption}
+              />
             </div>
             <div className="sectionColumn">
-              <div>
+              <div className="subSection">
                 <h3>Image</h3>
                 <button
                   style={{
@@ -70,6 +61,12 @@ const EditorOptions = ({ name, clData, changeBGColor }) => {
                   }}
                 ></button>
               </div>
+              <EditorOptionsList
+                title="Filter"
+                data={filterOptions}
+                type="filter"
+                changeOption={changeOption}
+              />
             </div>
           </div>
         </OptionsSection>

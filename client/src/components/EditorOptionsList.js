@@ -1,7 +1,7 @@
 import { EditorsOptionsContainer } from "./styled/EditorOptionsList.styled";
 import { useState } from "react";
 
-const EditorOptionsList = ({ data, title }) => {
+const EditorOptionsList = ({ data, title, type, changeOption }) => {
   const [displayList, setDisplayList] = useState(false);
   const [defaultOpt, setDefaultOpt] = useState(data[0]);
 
@@ -12,18 +12,21 @@ const EditorOptionsList = ({ data, title }) => {
   const handleSelectOption = (e) => {
     setDisplayList(!displayList);
     setDefaultOpt(e.target.textContent);
+    changeOption(e.target.textContent, e.target.type);
   };
 
   return (
     <>
-      <div>
+      <div className="subSection">
         <h3>{title}</h3>
-        <button onClick={handleDisplay}>{defaultOpt}</button>
+        <button className="listButton" onClick={handleDisplay}>
+          {defaultOpt}
+        </button>
         {displayList && (
           <EditorsOptionsContainer>
             {data.map((option, i) => {
               return (
-                <li key={i} onClick={handleSelectOption}>
+                <li type={type} key={i} onClick={handleSelectOption}>
                   {option}
                 </li>
               );

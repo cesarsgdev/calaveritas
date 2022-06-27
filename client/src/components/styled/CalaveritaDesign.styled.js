@@ -11,6 +11,7 @@ export const CalaveritaDesign = styled.main`
     height: 100%;
     object-fit: cover;
     object-position: center;
+    filter: ${({ imgFilter }) => (imgFilter ? `${imgFilter}()` : "none")};
   }
   & div.overlay {
     position: absolute;
@@ -21,7 +22,8 @@ export const CalaveritaDesign = styled.main`
     background-color: ${({ bgColor }) =>
       `rgba(${bgColor.r},${bgColor.g},${bgColor.b},${bgColor.a})`};
     z-index: 1000;
-    mix-blend-mode: normal;
+    mix-blend-mode: ${({ blendMode }) =>
+      blendMode ? `${blendMode}` : "normal"};
   }
 
   & div.text {

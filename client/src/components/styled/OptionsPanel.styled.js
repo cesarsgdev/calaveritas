@@ -61,12 +61,18 @@ export const OptionsPanel = styled.section`
     flex: 1 1 40%;
     background: rgba(0, 0, 0, 0.25);
     padding: 10px;
+    justify-content: center;
   }
 
-  & div.sectionColumn div {
+  & div.sectionColumn div.subSection {
+    position: relative;
     display: flex;
     gap: 10px;
     flex-flow: column nowrap;
+  }
+
+  & div.sectionColumn div.subSection .listButton {
+    height: 30px;
   }
 
   & div.twoColumns button {
@@ -78,7 +84,7 @@ export const OptionsPanel = styled.section`
 
   & div.twoColumns .pickerContainer {
     position: absolute;
-    bottom: -235px;
+    bottom: -305px;
     z-index: 1000;
   }
 `;

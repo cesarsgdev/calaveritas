@@ -7,6 +7,7 @@ export const EditorsOptionsContainer = styled.ul`
   list-style: none;
   height: 200px;
   overflow: scroll;
+  bottom: -210px;
 
   & li {
     padding: 5px 10px;

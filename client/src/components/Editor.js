@@ -20,6 +20,8 @@ const Editor = () => {
   const canvasElement = useRef();
   const titleInput = useRef();
   const contentInput = useRef();
+  const [filter, setFilter] = useState(null);
+  const [blendMode, setBlendMode] = useState(null);
 
   useEffect(() => {
     fetch(`../api/calaveritas/${id}`)
@@ -55,6 +57,16 @@ const Editor = () => {
     setClData({ ...temp });
   };
 
+  const changeOption = (action, type) => {
+    console.log(action, type);
+    if (type === "filter") {
+      setFilter(action);
+    }
+    if (type === "blendMode") {
+      setBlendMode(action);
+    }
+  };
+
   if (!clData.name) return <Loader loading="editor" />;
 
   if (clData.name)
@@ -67,7 +79,12 @@ const Editor = () => {
             cbi={transparentBG}
           >
             <img src={logo} alt="logo" />
-            <CalaveritaDesign ref={calaveritaDesign} bgColor={clData.bgColor}>
+            <CalaveritaDesign
+              ref={calaveritaDesign}
+              bgColor={clData.bgColor}
+              imgFilter={filter}
+              blendMode={blendMode}
+            >
               <img
                 className="bgDesign"
                 src={`data:image/jpeg;base64,${clData.background.base64}`}
@@ -104,6 +121,7 @@ const Editor = () => {
             name={name}
             clData={clData}
             changeBGColor={changeBGColor}
+            changeOption={changeOption}
           />
         </EditorContainer>
       </>
