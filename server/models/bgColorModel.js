@@ -4,10 +4,10 @@ const { Schema } = mongoose;
 
 const bgSchema = new Schema(
   {
-    r: { type: String, required: true, default: "0" },
-    g: { type: String, required: true, default: "0" },
-    b: { type: String, required: true, default: "0" },
-    a: { type: String, required: true, default: "1" },
+    r: { type: Number, required: true, default: 0 },
+    g: { type: Number, required: true, default: 0 },
+    b: { type: Number, required: true, default: 0 },
+    a: { type: Number, required: true, default: 0.5 },
   },
   { _id: false }
 );

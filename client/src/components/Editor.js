@@ -64,6 +64,23 @@ const Editor = () => {
     setClData({ ...temp });
   };
 
+  const changeBGColorComplete = (color) => {
+    const options = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ bgColor: color.rgb }),
+    };
+
+    fetch(`../api/calaveritas/${id}`, options)
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((e) => {
+        console.log(e.message);
+      });
+  };
+
   const changeOption = (action, type) => {
     console.log(action, type);
     if (type === "filter") {
@@ -90,8 +107,24 @@ const Editor = () => {
     setWidth((width) => widthSize);
   };
 
-  const changeBgImage = (base64) => {
+  const changeBgImage = (base64, imageID) => {
     setBgImage(base64);
+    console.log(JSON.stringify({ background: imageID }));
+    const options = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ background: imageID }),
+      redirect: "follow",
+    };
+
+    fetch(`../api/calaveritas/${id}`, options)
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((e) => {
+        console.log(e.message);
+      });
   };
 
   if (!clData.name) return <Loader loading="editor" />;
@@ -153,6 +186,7 @@ const Editor = () => {
             name={name}
             clData={clData}
             changeBGColor={changeBGColor}
+            changeBGColorComplete={changeBGColorComplete}
             changeOption={changeOption}
             changeWidth={changeWidth}
             changeBgImage={changeBgImage}

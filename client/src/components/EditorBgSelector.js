@@ -40,7 +40,7 @@ const EditorBgSelector = ({ changeBgImage }) => {
               return (
                 <button
                   onClick={(e) => {
-                    changeBgImage(background.base64);
+                    changeBgImage(background.base64, background._id);
                   }}
                   onMouseOver={(e) => {
                     handlePreview(e, i);

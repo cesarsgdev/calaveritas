@@ -17,6 +17,7 @@ const EditorOptions = ({
   name,
   clData,
   changeBGColor,
+  changeBGColorComplete,
   changeOption,
   changeWidth,
   changeBgImage,
@@ -36,9 +37,12 @@ const EditorOptions = ({
     changeBGColor(color);
   };
 
+  const handleBGColorComplete = (color, event) => {
+    changeBGColorComplete(color);
+  };
+
   const handleBgSelect = (e) => {
     setBgSelect(!bgSelect);
-    console.log(`Bg Select!`);
   };
   return (
     <>
@@ -60,6 +64,7 @@ const EditorOptions = ({
                     <SketchPicker
                       color={bgColor}
                       onChange={handleBGColorChange}
+                      onChangeComplete={handleBGColorComplete}
                     />
                   </div>
                 )}
