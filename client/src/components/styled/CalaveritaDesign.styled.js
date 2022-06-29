@@ -1,16 +1,19 @@
 import styled from "styled-components";
 
 export const CalaveritaDesign = styled.main`
-  position: relative;
-  width: ${({ widthSize }) => (widthSize ? `${widthSize}px` : "400px")};
-  height: 650px;
+  transform: ${({ zoom }) => `scale(${zoom})`};
   transition: transform 1s;
-  margin: auto;
-  flex-shrink: 0;
+
+  & > div {
+    position: relative;
+    width: ${({ widthSize }) => (widthSize ? `${widthSize}px` : "400px")};
+    height: 650px;
+    transition: transform 1s;
+    margin: auto;
+    flex-shrink: 0;
+  }
 
   & img.bgDesign {
-    width: calc(100%);
-    height: 100%;
     object-fit: cover;
     object-position: center;
     filter: ${({ imgFilter }) => (imgFilter ? `${imgFilter}()` : "none")};
@@ -46,7 +49,8 @@ export const CalaveritaDesign = styled.main`
     font-family: ${({ fontTitle }) =>
       fontTitle ? `${fontTitle}, sans-serif` : "inherit"};
     flex: 1 0 10%;
-    color: #fff;
+    color: ${({ fontTitleColor }) =>
+      fontTitleColor ? `${fontTitleColor}` : null};
     font-size: ${({ fontSizeTitle }) =>
       fontSizeTitle ? `${fontSizeTitle}px` : "36px"};
   }

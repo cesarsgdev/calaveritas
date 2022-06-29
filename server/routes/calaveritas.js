@@ -32,10 +32,10 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const calaverita = new Calaverita(req.body);
-    const bgModel = new BGColorModel();
-    calaverita.bgColor = bgModel;
-    console.log(calaverita);
-    await calaverita.save();
+    // const bgModel = new BGColorModel();
+    // calaverita.bgColor = bgModel;
+    // console.log(calaverita);
+    // await calaverita.save();
     res.status(200).json(calaverita);
   } catch (e) {
     res.status(400).json({ success: false, message: `${e.message}` });

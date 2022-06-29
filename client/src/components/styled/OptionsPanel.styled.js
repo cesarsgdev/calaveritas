@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const OptionsPanel = styled.section`
   display: flex;
   flex-flow: column nowrap;
+  justify-content: space-around;
   gap: 20px;
   background: var(--main-violet);
   flex: 1 1 400px;

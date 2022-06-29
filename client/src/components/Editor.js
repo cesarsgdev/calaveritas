@@ -1,5 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
+import * as htmlToImage from "html-to-image";
+import { toPng, toJpeg, toCanvas, toSvg } from "html-to-image";
 import transparentBG from "../transparent-bg.jpeg";
 import logo from "../logo.svg";
 import Loader from "./Loader";
@@ -16,7 +18,7 @@ const Editor = () => {
   const [name, setName] = useState("");
   const [content, setContent] = useState("");
   const navigate = useNavigate();
-  const calaveritaDesign = useRef();
+  const calaveritaDesign = useRef(null);
   const canvasElement = useRef();
   const titleInput = useRef();
   const contentInput = useRef();
@@ -27,6 +29,7 @@ const Editor = () => {
   const [fontContent, setFontContent] = useState(null);
   const [fontSizeTitle, setFontSizeTitle] = useState(null);
   const [fontSizeContent, setFontSizeContent] = useState(null);
+  const [fontTitleColor, setFontTitleColor] = useState("#FFF");
   const [width, setWidth] = useState(null);
 
   useEffect(() => {
@@ -51,26 +54,27 @@ const Editor = () => {
   const handleWheel = (e) => {
     if (e.deltaY > 0 && zoom > 0) {
       setZoom((zoom) => zoom - 0.025);
-      calaveritaDesign.current.style.transform = `scale(${zoom})`;
+      // calaveritaDesign.current.style.transform = `scale(${zoom})`;
     } else {
       setZoom((zoom) => zoom + 0.025);
-      calaveritaDesign.current.style.transform = `scale(${zoom})`;
+      // calaveritaDesign.current.style.transform = `scale(${zoom})`;
     }
   };
 
   const changeBGColor = (color) => {
     const temp = { ...clData };
-    temp.bgColor = color.rgb;
+    temp.properties.bgColor = color.rgb;
     setClData({ ...temp });
   };
 
   const changeBGColorComplete = (color) => {
+    console.log(color);
     const options = {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ bgColor: color.rgb }),
+      body: JSON.stringify({ properties: { bgColor: color.rgb } }),
     };
 
     fetch(`../api/calaveritas/${id}`, options)
@@ -82,7 +86,6 @@ const Editor = () => {
   };
 
   const changeOption = (action, type) => {
-    console.log(action, type);
     if (type === "filter") {
       setFilter(action);
     }
@@ -100,6 +103,10 @@ const Editor = () => {
     }
     if (type === "fontSizeContent") {
       setFontSizeContent(action);
+    }
+
+    if (type === "fontTitleColor") {
+      setFontTitleColor(action);
     }
   };
 
@@ -127,6 +134,72 @@ const Editor = () => {
       });
   };
 
+  const saveContent = (e) => {
+    // console.log(e.target.innerHTML);
+    const options = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ content: e.target.innerHTML }),
+      redirect: "follow",
+    };
+
+    fetch(`../api/calaveritas/${id}`, options)
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((e) => {
+        console.log(e.message);
+      });
+  };
+
+  const saveImage = () => {
+    console.log(calaveritaDesign.current);
+    htmlToImage
+      .toPng(calaveritaDesign.current, {
+        cacheBust: true,
+        canvasWidth: 400,
+        canvasHeight: 650,
+        pixelRatio: 1,
+        skipAutoScale: true,
+      })
+      .then(function (dataUrl) {
+        console.log(dataUrl);
+      });
+
+    // htmlToImage
+    //   .toCanvas(calaveritaDesign.current, {
+    //     cacheBust: true,
+    //     canvasWidth: 400,
+    //     canvasHeight: 650,
+    //     pixelRatio: 1,
+    //     skipAutoScale: true,
+    //   })
+    //   .then(function (canvas) {
+    //     // console.log(dataUrl);
+    //     document.body.appendChild(canvas);
+    //   });
+  };
+
+  const saveImage2 = useCallback(() => {
+    // console.log(calaveritaDesign.current);
+    titleInput.current.style.border = "none";
+    contentInput.current.style.border = "none";
+
+    htmlToImage
+      .toJpeg(calaveritaDesign.current, {
+        // cacheBust: true,
+        // canvasWidth: 400,
+        // canvasHeight: 650,
+        filter: filter,
+      })
+      .then(function (dataUrl) {
+        console.log(dataUrl);
+        titleInput.current.style.border = "1px dashed lightgray";
+        contentInput.current.style.border = "1px dashed lightgray";
+      });
+  }, [calaveritaDesign]);
+
   if (!clData.name) return <Loader loading="editor" />;
 
   if (clData.name)
@@ -140,41 +213,44 @@ const Editor = () => {
           >
             <img src={logo} alt="logo" />
             <CalaveritaDesign
-              ref={calaveritaDesign}
-              bgColor={clData.bgColor}
+              bgColor={clData.properties.bgColor}
               imgFilter={filter}
               blendMode={blendMode}
               fontTitle={fontTitle}
               fontContent={fontContent}
               fontSizeContent={fontSizeContent}
               fontSizeTitle={fontSizeTitle}
+              fontTitleColor={fontTitleColor}
               widthSize={width}
+              zoom={zoom}
             >
-              <img
-                className="bgDesign"
-                src={`data:image/jpeg;base64,${bgImage}`}
-                alt="background"
-              />
-              <div className="overlay"></div>
-              <div className="text">
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => {
-                    setName(e.target.value);
-                  }}
-                  ref={titleInput}
+              <div ref={calaveritaDesign}>
+                <img
+                  className="bgDesign"
+                  src={`data:image/jpeg;base64,${bgImage}`}
+                  alt="background"
+                  width="100%"
+                  height="100%"
                 />
-                <textarea
-                  value={content}
-                  onChange={(e) => {
-                    setContent(e.target.value);
-                  }}
-                  ref={contentInput}
-                  onBlur={() => {
-                    console.log(contentInput.current.innerHTML);
-                  }}
-                ></textarea>
+                <div className="overlay"></div>
+                <div className="text">
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => {
+                      setName(e.target.value);
+                    }}
+                    ref={titleInput}
+                  />
+                  <textarea
+                    value={content}
+                    onChange={(e) => {
+                      setContent(e.target.value);
+                    }}
+                    ref={contentInput}
+                    onBlur={saveContent}
+                  ></textarea>
+                </div>
               </div>
             </CalaveritaDesign>
             <CanvasFooterInfo>
@@ -191,6 +267,7 @@ const Editor = () => {
             changeWidth={changeWidth}
             changeBgImage={changeBgImage}
             bgImage={bgImage}
+            saveImage={saveImage2}
           />
         </EditorContainer>
       </>

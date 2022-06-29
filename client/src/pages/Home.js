@@ -5,20 +5,20 @@ import NoCalaveritas from "../components/NoCalaveritas";
 import { useState, useEffect } from "react";
 
 const Home = () => {
-  const [clData, setClData] = useState(null);
+  const [clData, setClData] = useState([]);
 
   useEffect(() => {
-    fetch("api/calaveritas")
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        if (data.success) {
-          setClData(data.data);
-        }
-      })
-      .catch((e) => {
-        console.log(e.message);
-      });
+    // fetch("api/calaveritas")
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //     if (data.success) {
+    //       setClData(data.data);
+    //     }
+    //   })
+    //   .catch((e) => {
+    //     console.log(e.message);
+    //   });
   }, []);
 
   if (!clData)

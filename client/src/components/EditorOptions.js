@@ -6,6 +6,7 @@ import { useState } from "react";
 import EditorOptionsList from "./EditorOptionsList";
 import { Overlay } from "./styled/Overlay.styled";
 import EditorBgSelector from "./EditorBgSelector";
+import TextFormatControls from "./TextFormatControls";
 import {
   blendColorOptions,
   filterOptions,
@@ -22,9 +23,10 @@ const EditorOptions = ({
   changeWidth,
   changeBgImage,
   bgImage,
+  saveImage,
 }) => {
   const [displayPicker, setDisplayPicker] = useState(false);
-  const [bgColor, setBgColor] = useState(clData.bgColor);
+  const [bgColor, setBgColor] = useState(clData.properties.bgColor);
   const [width, setWidth] = useState(400);
   const [bgSelect, setBgSelect] = useState(false);
 
@@ -119,6 +121,10 @@ const EditorOptions = ({
                   type="fontSizeTitle"
                   changeOption={changeOption}
                 />
+                <TextFormatControls
+                  changeOption={changeOption}
+                  type="fontTitleColor"
+                />
               </div>
             </div>
             <div className="sectionColumn">
@@ -137,6 +143,7 @@ const EditorOptions = ({
                   type="fontSizeContent"
                   changeOption={changeOption}
                 />
+                <TextFormatControls />
               </div>
             </div>
           </div>
@@ -159,6 +166,7 @@ const EditorOptions = ({
             </div>
           </div>
         </OptionsSection>
+        <button onClick={saveImage}>Download Image</button>
       </OptionsPanel>
       {bgSelect && (
         <Overlay dark onClick={handleBgSelect}>
