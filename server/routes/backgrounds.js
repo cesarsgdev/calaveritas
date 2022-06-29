@@ -42,9 +42,8 @@ router.get("/getUrl", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-  console.log(req.query.skip);
   try {
-    const backgrounds = await Background.find().skip(req.query.skip).limit(10);
+    const backgrounds = await Background.find().skip(req.query.skip).limit();
     res.status(200).json({ success: true, data: backgrounds });
   } catch (e) {
     res.status(400).json({ success: false, message: `${e.message}` });

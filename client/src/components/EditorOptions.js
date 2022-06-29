@@ -4,6 +4,8 @@ import transparentBG from "../transparent-bg.jpeg";
 import { SketchPicker } from "react-color";
 import { useState } from "react";
 import EditorOptionsList from "./EditorOptionsList";
+import { Overlay } from "./styled/Overlay.styled";
+import EditorBgSelector from "./EditorBgSelector";
 import {
   blendColorOptions,
   filterOptions,
@@ -11,9 +13,19 @@ import {
   fontSizes,
 } from "./data/options";
 
-const EditorOptions = ({ name, clData, changeBGColor, changeOption }) => {
+const EditorOptions = ({
+  name,
+  clData,
+  changeBGColor,
+  changeOption,
+  changeWidth,
+  changeBgImage,
+  bgImage,
+}) => {
   const [displayPicker, setDisplayPicker] = useState(false);
   const [bgColor, setBgColor] = useState(clData.bgColor);
+  const [width, setWidth] = useState(400);
+  const [bgSelect, setBgSelect] = useState(false);
 
   const handlePicker = () => {
     setDisplayPicker(!displayPicker);
@@ -23,9 +35,14 @@ const EditorOptions = ({ name, clData, changeBGColor, changeOption }) => {
     setBgColor(color.rgb);
     changeBGColor(color);
   };
+
+  const handleBgSelect = (e) => {
+    setBgSelect(!bgSelect);
+    console.log(`Bg Select!`);
+  };
   return (
     <>
-      <OptionsPanel>
+      <OptionsPanel bgBtnImage={bgImage}>
         <h1>{name}</h1>
         <OptionsSection title="Background">
           <div className="twoColumns">
@@ -59,11 +76,15 @@ const EditorOptions = ({ name, clData, changeBGColor, changeOption }) => {
               <div className="subSection">
                 <h3>Image</h3>
                 <button
-                  style={{
-                    background: `url(data:image/jpeg;base64,${clData.background.base64})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                  }}
+                  className="btnImgBg"
+                  style={
+                    {
+                      // background: `url(data:image/jpeg;base64,${bgImage})`,
+                      // backgroundSize: "160px",
+                      // backgroundPosition: "center",
+                    }
+                  }
+                  onClick={handleBgSelect}
                 ></button>
               </div>
               <EditorOptionsList
@@ -79,12 +100,13 @@ const EditorOptions = ({ name, clData, changeBGColor, changeOption }) => {
           <div className="twoColumns">
             <div className="sectionColumn">
               <div className="subSection">
-                <h3>Title</h3>
+                <h3 className="titleSubSection">Title</h3>
                 <EditorOptionsList
                   title="Family"
                   data={fontFamilies}
                   type="fontTitle"
                   changeOption={changeOption}
+                  font={true}
                 />
                 <EditorOptionsList
                   title="Size"
@@ -96,12 +118,13 @@ const EditorOptions = ({ name, clData, changeBGColor, changeOption }) => {
             </div>
             <div className="sectionColumn">
               <div className="subSection">
-                <h3>Content</h3>
+                <h3 className="titleSubSection">Content</h3>
                 <EditorOptionsList
                   title="Family"
                   data={fontFamilies}
                   type="fontContent"
                   changeOption={changeOption}
+                  font={true}
                 />
                 <EditorOptionsList
                   title="Size"
@@ -113,8 +136,30 @@ const EditorOptions = ({ name, clData, changeBGColor, changeOption }) => {
             </div>
           </div>
         </OptionsSection>
-        <OptionsSection title="Size"></OptionsSection>
+        <OptionsSection title="Size">
+          <div className="twoColumns">
+            <div className="sectionColumn">
+              <div className="subSection">
+                <input
+                  type="text"
+                  value={width}
+                  onChange={(e) => {
+                    setWidth((width) => e.target.value);
+                  }}
+                  onBlur={(e) => {
+                    changeWidth(width);
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        </OptionsSection>
       </OptionsPanel>
+      {bgSelect && (
+        <Overlay dark onClick={handleBgSelect}>
+          <EditorBgSelector changeBgImage={changeBgImage}></EditorBgSelector>
+        </Overlay>
+      )}
     </>
   );
 };

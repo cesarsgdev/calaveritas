@@ -20,12 +20,14 @@ const Editor = () => {
   const canvasElement = useRef();
   const titleInput = useRef();
   const contentInput = useRef();
+  const [bgImage, setBgImage] = useState(null);
   const [filter, setFilter] = useState(null);
   const [blendMode, setBlendMode] = useState(null);
   const [fontTitle, setFontTitle] = useState(null);
   const [fontContent, setFontContent] = useState(null);
   const [fontSizeTitle, setFontSizeTitle] = useState(null);
   const [fontSizeContent, setFontSizeContent] = useState(null);
+  const [width, setWidth] = useState(null);
 
   useEffect(() => {
     fetch(`../api/calaveritas/${id}`)
@@ -35,6 +37,7 @@ const Editor = () => {
           setClData(data.data);
           setName(data.data.name);
           setContent(data.data.content);
+          setBgImage(data.data.background.base64);
           console.log(data);
         } else {
           navigate("/", { replace: false });
@@ -83,6 +86,14 @@ const Editor = () => {
     }
   };
 
+  const changeWidth = (widthSize) => {
+    setWidth((width) => widthSize);
+  };
+
+  const changeBgImage = (base64) => {
+    setBgImage(base64);
+  };
+
   if (!clData.name) return <Loader loading="editor" />;
 
   if (clData.name)
@@ -104,10 +115,11 @@ const Editor = () => {
               fontContent={fontContent}
               fontSizeContent={fontSizeContent}
               fontSizeTitle={fontSizeTitle}
+              widthSize={width}
             >
               <img
                 className="bgDesign"
-                src={`data:image/jpeg;base64,${clData.background.base64}`}
+                src={`data:image/jpeg;base64,${bgImage}`}
                 alt="background"
               />
               <div className="overlay"></div>
@@ -142,6 +154,9 @@ const Editor = () => {
             clData={clData}
             changeBGColor={changeBGColor}
             changeOption={changeOption}
+            changeWidth={changeWidth}
+            changeBgImage={changeBgImage}
+            bgImage={bgImage}
           />
         </EditorContainer>
       </>

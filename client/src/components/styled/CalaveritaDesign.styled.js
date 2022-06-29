@@ -2,9 +2,11 @@ import styled from "styled-components";
 
 export const CalaveritaDesign = styled.main`
   position: relative;
-  width: 400px;
+  width: ${({ widthSize }) => (widthSize ? `${widthSize}px` : "400px")};
   height: 650px;
   transition: transform 1s;
+  margin: auto;
+  flex-shrink: 0;
 
   & img.bgDesign {
     width: calc(100%);

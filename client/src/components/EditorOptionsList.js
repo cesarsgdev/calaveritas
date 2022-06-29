@@ -1,7 +1,7 @@
 import { EditorsOptionsContainer } from "./styled/EditorOptionsList.styled";
 import { useState } from "react";
 
-const EditorOptionsList = ({ data, title, type, changeOption }) => {
+const EditorOptionsList = ({ data, title, type, changeOption, font }) => {
   const [displayList, setDisplayList] = useState(false);
   const [defaultOpt, setDefaultOpt] = useState(data[0]);
 
@@ -26,7 +26,14 @@ const EditorOptionsList = ({ data, title, type, changeOption }) => {
           <EditorsOptionsContainer>
             {data.map((option, i) => {
               return (
-                <li type={type} key={i} onClick={handleSelectOption}>
+                <li
+                  style={{
+                    fontFamily: font ? `${option}, sans-serif` : "inherit",
+                  }}
+                  type={type}
+                  key={i}
+                  onClick={handleSelectOption}
+                >
                   {option}
                 </li>
               );

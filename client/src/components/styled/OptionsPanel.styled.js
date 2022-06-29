@@ -36,7 +36,8 @@ export const OptionsPanel = styled.section`
     color: #000;
   } */
 
-  & .optionSection h2 {
+  & .optionSection h2,
+  .optionSection h3.titleSubSection {
     font-size: 14px;
     text-transform: uppercase;
     color: var(--lighter-violet);
@@ -86,5 +87,12 @@ export const OptionsPanel = styled.section`
     position: absolute;
     bottom: -305px;
     z-index: 1000;
+  }
+
+  & .btnImgBg {
+    background: ${({ bgBtnImage }) =>
+      `url(data:image/jpeg;base64,${bgBtnImage})`};
+    background-size: 160px;
+    background-position: center;
   }
 `;
