@@ -16,7 +16,8 @@ export const EditorsOptionsContainer = styled.ul`
   }
 
   & li:hover {
-    background: lightgray;
+    background: var(--main-violet);
+    color: #fff;
     cursor: pointer;
   }
 `;

@@ -1,5 +1,6 @@
 import { EditorsOptionsContainer } from "./styled/EditorOptionsList.styled";
 import { useState } from "react";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 const EditorOptionsList = ({ data, title, type, changeOption, font }) => {
   const [displayList, setDisplayList] = useState(false);
@@ -20,7 +21,7 @@ const EditorOptionsList = ({ data, title, type, changeOption, font }) => {
       <div className="subSection">
         <h3>{title}</h3>
         <button className="listButton" onClick={handleDisplay}>
-          {defaultOpt}
+          {defaultOpt} {!displayList ? <FaChevronDown /> : <FaChevronUp />}
         </button>
         {displayList && (
           <EditorsOptionsContainer>
@@ -29,6 +30,10 @@ const EditorOptionsList = ({ data, title, type, changeOption, font }) => {
                 <li
                   style={{
                     fontFamily: font ? `${option}, sans-serif` : "inherit",
+                    background: `${
+                      defaultOpt === option ? `var(--main-violet)` : null
+                    }`,
+                    color: `${defaultOpt === option ? `#FFF` : null}`,
                   }}
                   type={type}
                   key={i}

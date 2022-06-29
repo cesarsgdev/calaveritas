@@ -73,6 +73,10 @@ export const OptionsPanel = styled.section`
   }
 
   & div.sectionColumn div.subSection .listButton {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 5px;
     height: 30px;
   }
 
