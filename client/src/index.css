@@ -12,6 +12,9 @@
   --lighter-violet: #ae8bf4;
   --main-yellow: #fdc660;
   --main-yellow-trans: #fdad18;
+
+  --toastify-color-success: red;
+  --toastify-toast-width: 1000px;
 }
 
 * {
@@ -33,6 +36,10 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.toastProgress {
+  background: var(--main-violet) !important;
 }
 
 #root {

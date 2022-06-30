@@ -1,4 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
+import React from "react";
 import { useState, useEffect, useRef, useCallback } from "react";
 import * as htmlToImage from "html-to-image";
 import { toPng, toJpeg, toCanvas, toSvg } from "html-to-image";
@@ -10,6 +11,13 @@ import { CanvasContainer } from "./styled/CanvasContainer.styled";
 import { CanvasFooterInfo } from "./styled/CanvasFooterInfo.styled";
 import { CalaveritaDesign } from "./styled/CalaveritaDesign.styled";
 import EditorOptions from "./EditorOptions";
+import { updateCalaverita } from "./services/apiCalls";
+import { ToastContainer, toast } from "react-toastify";
+
+// import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+// import { changeBGColorComplete } from "./services/updateFunctions";
 
 const Editor = () => {
   const { id } = useParams();
@@ -17,23 +25,24 @@ const Editor = () => {
   const [zoom, setZoom] = useState(1);
   const [name, setName] = useState("");
   const [content, setContent] = useState("");
-  const navigate = useNavigate();
-  const calaveritaDesign = useRef(null);
-  const canvasElement = useRef();
-  const titleInput = useRef();
-  const contentInput = useRef();
   const [bgImage, setBgImage] = useState(null);
-  const [filter, setFilter] = useState(null);
+  // const [filter, setFilter] = useState(null);
   const [blendMode, setBlendMode] = useState(null);
   const [fontTitle, setFontTitle] = useState(null);
   const [fontContent, setFontContent] = useState(null);
-  const [fontSizeTitle, setFontSizeTitle] = useState(null);
-  const [fontSizeContent, setFontSizeContent] = useState(null);
+  // const [fontSizeTitle, setFontSizeTitle] = useState(null);
+  // const [fontSizeContent, setFontSizeContent] = useState(null);
   const [fontTitleColor, setFontTitleColor] = useState("#FFF");
   const [fontContentColor, setFontContentColor] = useState("#FFF");
   const [fontTitleAlignment, setFontTitleAlignment] = useState("left");
   const [fontContentAlignment, setFontContentAlignment] = useState("left");
   const [width, setWidth] = useState(null);
+  const navigate = useNavigate();
+  const calaveritaDesign = useRef(null);
+  const canvasElement = useRef();
+  const titleInput = useRef();
+  const contentInput = useRef();
+  const toastId = useRef(null);
 
   useEffect(() => {
     fetch(`../api/calaveritas/${id}`)
@@ -44,6 +53,7 @@ const Editor = () => {
           setName(data.data.name);
           setContent(data.data.content);
           setBgImage(data.data.background.base64);
+          // setFilter(data.data.properties.bgFilter);
           console.log(data);
         } else {
           navigate("/", { replace: false });
@@ -71,26 +81,21 @@ const Editor = () => {
   };
 
   const changeBGColorComplete = (color) => {
-    console.log(color);
-    const options = {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ properties: { bgColor: color.rgb } }),
-    };
-
-    fetch(`../api/calaveritas/${id}`, options)
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((e) => {
-        console.log(e.message);
-      });
+    const payload = { properties: { ...clData.properties } };
+    updateCalaverita(id, payload, toastId);
   };
 
+  // const changeBGColorComplete = (color) => {
+  //   updateCalaverita(id, { properties: { bgColor: color.rgb } });
+  // };
+
   const changeOption = (action, type) => {
+    let temp = { ...clData };
+
     if (type === "filter") {
-      setFilter(action);
+      // setFilter(action);
+      temp.properties.bgFilter = action;
+      setClData({ ...temp });
     }
     if (type === "blendMode") {
       setBlendMode(action);
@@ -102,10 +107,15 @@ const Editor = () => {
       setFontContent(action);
     }
     if (type === "fontSizeTitle") {
-      setFontSizeTitle(action);
+      // setFontSizeTitle(action);
+      // temp = { ...clData };
+      temp.properties.fonts.title.size = action;
+      setClData({ ...temp });
     }
     if (type === "fontSizeContent") {
-      setFontSizeContent(action);
+      // setFontSizeContent(action);
+      temp.properties.fonts.content.size = action;
+      setClData({ ...temp });
     }
 
     if (type === "fontTitleColor") {
@@ -222,7 +232,7 @@ const Editor = () => {
         // cacheBust: true,
         // canvasWidth: 400,
         // canvasHeight: 650,
-        filter: filter,
+        // filter: filter,
       })
       .then(function (dataUrl) {
         console.log(dataUrl);
@@ -237,6 +247,7 @@ const Editor = () => {
     return (
       <>
         <EditorContainer>
+          <ToastContainer progressClassName="toastProgress" />
           <CanvasContainer
             ref={canvasElement}
             onWheel={handleWheel}
@@ -245,12 +256,12 @@ const Editor = () => {
             <img src={logo} alt="logo" />
             <CalaveritaDesign
               bgColor={clData.properties.bgColor}
-              imgFilter={filter}
+              imgFilter={clData.properties.bgFilter}
               blendMode={blendMode}
               fontTitle={fontTitle}
               fontContent={fontContent}
-              fontSizeContent={fontSizeContent}
-              fontSizeTitle={fontSizeTitle}
+              fontSizeContent={clData.properties.fonts.content.size}
+              fontSizeTitle={clData.properties.fonts.title.size}
               fontTitleColor={fontTitleColor}
               fontContentColor={fontContentColor}
               fontTitleAlignment={fontTitleAlignment}
@@ -259,13 +270,15 @@ const Editor = () => {
               zoom={zoom}
             >
               <div ref={calaveritaDesign}>
-                <img
-                  className="bgDesign"
-                  src={`data:image/jpeg;base64,${bgImage}`}
-                  alt="background"
-                  width="100%"
-                  height="100%"
-                />
+                {bgImage && (
+                  <img
+                    className="bgDesign"
+                    src={`data:image/jpeg;base64,${bgImage}`}
+                    alt="background"
+                    width="100%"
+                    height="100%"
+                  />
+                )}
                 <div className="overlay"></div>
                 <div className="text">
                   <input
@@ -293,6 +306,7 @@ const Editor = () => {
             </CanvasFooterInfo>
           </CanvasContainer>
           <EditorOptions
+            cid={id}
             name={name}
             clData={clData}
             changeBGColor={changeBGColor}

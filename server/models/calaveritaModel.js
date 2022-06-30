@@ -16,6 +16,17 @@ const fontTitleSchema = new Schema(
       default: 36,
       required: true,
     },
+    color: {
+      type: String,
+      default: "#FFFFFF",
+      required: true,
+    },
+
+    align: {
+      type: String,
+      default: "left",
+      required: true,
+    },
   },
   { _id: false }
 );
@@ -31,6 +42,17 @@ const fontContentSchema = new Schema(
     size: {
       type: Number,
       default: 36,
+      required: true,
+    },
+    color: {
+      type: String,
+      default: "#FFFFFF",
+      required: true,
+    },
+
+    align: {
+      type: String,
+      default: "left",
       required: true,
     },
   },
@@ -106,6 +128,7 @@ const calaveritaSchema = new Schema(
     background: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "backgrounds",
+      default: null,
     },
 
     // properties: bgSchema.schema,

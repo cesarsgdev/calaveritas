@@ -2,9 +2,16 @@ import { EditorsOptionsContainer } from "./styled/EditorOptionsList.styled";
 import { useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
-const EditorOptionsList = ({ data, title, type, changeOption, font }) => {
+const EditorOptionsList = ({
+  data,
+  doption,
+  title,
+  type,
+  changeOption,
+  font,
+}) => {
   const [displayList, setDisplayList] = useState(false);
-  const [defaultOpt, setDefaultOpt] = useState(data[0]);
+  const [defaultOpt, setDefaultOpt] = useState(doption);
 
   const handleDisplay = () => {
     setDisplayList(!displayList);
@@ -31,9 +38,9 @@ const EditorOptionsList = ({ data, title, type, changeOption, font }) => {
                   style={{
                     fontFamily: font ? `${option}, sans-serif` : "inherit",
                     background: `${
-                      defaultOpt === option ? `var(--main-violet)` : null
+                      defaultOpt == option ? `var(--main-violet)` : null
                     }`,
-                    color: `${defaultOpt === option ? `#FFF` : null}`,
+                    color: `${defaultOpt == option ? `#FFF` : null}`,
                   }}
                   type={type}
                   key={i}

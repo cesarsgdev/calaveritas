@@ -15,6 +15,7 @@ import {
 } from "./data/options";
 
 const EditorOptions = ({
+  cid,
   name,
   clData,
   changeBGColor,
@@ -40,7 +41,7 @@ const EditorOptions = ({
   };
 
   const handleBGColorComplete = (color, event) => {
-    changeBGColorComplete(color);
+    changeBGColorComplete(color, cid);
   };
 
   const handleBgSelect = (e) => {
@@ -74,6 +75,7 @@ const EditorOptions = ({
 
               <EditorOptionsList
                 title="Blend Mode"
+                doption={clData.properties.bgBlendMode}
                 data={blendColorOptions}
                 type="blendMode"
                 changeOption={changeOption}
@@ -96,6 +98,7 @@ const EditorOptions = ({
               </div>
               <EditorOptionsList
                 title="Filter"
+                doption={clData.properties.bgFilter}
                 data={filterOptions}
                 type="filter"
                 changeOption={changeOption}
@@ -110,6 +113,7 @@ const EditorOptions = ({
                 <h3 className="titleSubSection">Title</h3>
                 <EditorOptionsList
                   title="Family"
+                  doption={clData.properties.fonts.title.family}
                   data={fontFamilies}
                   type="fontTitle"
                   changeOption={changeOption}
@@ -117,6 +121,7 @@ const EditorOptions = ({
                 />
                 <EditorOptionsList
                   title="Size"
+                  doption={clData.properties.fonts.title.size}
                   data={fontSizes}
                   type="fontSizeTitle"
                   changeOption={changeOption}
@@ -133,6 +138,7 @@ const EditorOptions = ({
                 <h3 className="titleSubSection">Content</h3>
                 <EditorOptionsList
                   title="Family"
+                  doption={clData.properties.fonts.content.family}
                   data={fontFamilies}
                   type="fontContent"
                   changeOption={changeOption}
@@ -140,6 +146,7 @@ const EditorOptions = ({
                 />
                 <EditorOptionsList
                   title="Size"
+                  doption={clData.properties.fonts.content.size}
                   data={fontSizes}
                   type="fontSizeContent"
                   changeOption={changeOption}
