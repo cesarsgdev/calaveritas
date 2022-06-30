@@ -3,19 +3,23 @@ import { FaAlignLeft, FaAlignCenter, FaAlignRight } from "react-icons/fa";
 import { SketchPicker } from "react-color";
 import { useState } from "react";
 
-const TextFormatControls = ({ changeOption, type }) => {
+const TextFormatControls = ({ changeOption, type, align }) => {
   const [displayPicker, setDisplayPicker] = useState(false);
   const [btnColor, setBtnColor] = useState("#FFFFFF");
+  const [titleAlign, setTitleAlign] = useState("left");
 
   const handleColorDisplay = () => {
     setDisplayPicker(!displayPicker);
   };
 
   const handleColorChange = (color, event) => {
-    // console.log(color);
-    // console.log(event);
     changeOption(color.hex, type);
     setBtnColor(color.hex);
+  };
+
+  const handleTextAlign = (e, title, action) => {
+    changeOption(title, align);
+    setTitleAlign(title.toLowerCase());
   };
   return (
     <>
@@ -39,18 +43,36 @@ const TextFormatControls = ({ changeOption, type }) => {
           ></button>
         </li>
         <li>
-          <button title="Left">
+          <button
+            className={`${titleAlign === "left" ? `active` : null}`}
+            title="Left"
+            onClick={(e) => {
+              handleTextAlign(e, "Left", "fontTitleAlign");
+            }}
+          >
             <FaAlignLeft />
           </button>
         </li>
         <li>
-          <button title="Center">
+          <button
+            className={`${titleAlign === "center" ? `active` : null}`}
+            title="Center"
+            onClick={(e) => {
+              handleTextAlign(e, "Center", "fontTitleAlign");
+            }}
+          >
             <FaAlignCenter />
           </button>
         </li>
 
         <li>
-          <button>
+          <button
+            className={`${titleAlign === "right" ? `active` : null}`}
+            title="Right"
+            onClick={(e) => {
+              handleTextAlign(e, "Right", "fontTitleAlign");
+            }}
+          >
             <FaAlignRight title="Right" />
           </button>
         </li>

@@ -30,6 +30,9 @@ const Editor = () => {
   const [fontSizeTitle, setFontSizeTitle] = useState(null);
   const [fontSizeContent, setFontSizeContent] = useState(null);
   const [fontTitleColor, setFontTitleColor] = useState("#FFF");
+  const [fontContentColor, setFontContentColor] = useState("#FFF");
+  const [fontTitleAlignment, setFontTitleAlignment] = useState("left");
+  const [fontContentAlignment, setFontContentAlignment] = useState("left");
   const [width, setWidth] = useState(null);
 
   useEffect(() => {
@@ -107,6 +110,34 @@ const Editor = () => {
 
     if (type === "fontTitleColor") {
       setFontTitleColor(action);
+    }
+
+    if (type === "fontContentColor") {
+      setFontContentColor(action);
+    }
+
+    if (action === "Left" && type === "fontTitleAlign") {
+      setFontTitleAlignment("left");
+    }
+
+    if (action === "Center" && type === "fontTitleAlign") {
+      setFontTitleAlignment("center");
+    }
+
+    if (action === "Right" && type === "fontTitleAlign") {
+      setFontTitleAlignment("right");
+    }
+
+    if (action === "Left" && type === "fontContentAlign") {
+      setFontContentAlignment("left");
+    }
+
+    if (action === "Center" && type === "fontContentAlign") {
+      setFontContentAlignment("center");
+    }
+
+    if (action === "Right" && type === "fontContentAlign") {
+      setFontContentAlignment("right");
     }
   };
 
@@ -221,6 +252,9 @@ const Editor = () => {
               fontSizeContent={fontSizeContent}
               fontSizeTitle={fontSizeTitle}
               fontTitleColor={fontTitleColor}
+              fontContentColor={fontContentColor}
+              fontTitleAlignment={fontTitleAlignment}
+              fontContentAlignment={fontContentAlignment}
               widthSize={width}
               zoom={zoom}
             >

@@ -124,6 +124,7 @@ const EditorOptions = ({
                 <TextFormatControls
                   changeOption={changeOption}
                   type="fontTitleColor"
+                  align="fontTitleAlign"
                 />
               </div>
             </div>
@@ -143,7 +144,11 @@ const EditorOptions = ({
                   type="fontSizeContent"
                   changeOption={changeOption}
                 />
-                <TextFormatControls />
+                <TextFormatControls
+                  changeOption={changeOption}
+                  type="fontContentColor"
+                  align="fontContentAlign"
+                />
               </div>
             </div>
           </div>

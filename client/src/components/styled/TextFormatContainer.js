@@ -21,6 +21,10 @@ export const TextFormatContainer = styled.ul`
     background: ${(props) => props.buttonColor};
   }
 
+  & li button.active {
+    background: var(--main-yellow-trans);
+  }
+
   & li button svg {
     width: 15px;
     height: 15px;

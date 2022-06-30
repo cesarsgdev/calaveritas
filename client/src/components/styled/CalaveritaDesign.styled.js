@@ -53,16 +53,21 @@ export const CalaveritaDesign = styled.main`
       fontTitleColor ? `${fontTitleColor}` : null};
     font-size: ${({ fontSizeTitle }) =>
       fontSizeTitle ? `${fontSizeTitle}px` : "36px"};
+    text-align: ${({ fontTitleAlignment }) =>
+      fontTitleAlignment ? `${fontTitleAlignment}` : null};
   }
 
   & div textarea {
     flex: 1 0 85%;
-    color: #fff;
+    color: ${({ fontContentColor }) =>
+      fontContentColor ? `${fontContentColor}` : null};
     font-family: ${({ fontContent }) =>
       fontContent ? `${fontContent}, sans-serif` : "inherit"};
     font-size: ${({ fontSizeContent }) =>
       fontSizeContent ? `${fontSizeContent}px` : "22px"};
     white-space: nowrap;
+    text-align: ${({ fontContentAlignment }) =>
+      fontContentAlignment ? `${fontContentAlignment}` : null};
   }
 
   & div input,
